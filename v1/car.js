@@ -11,8 +11,11 @@ class Car {
         this.maxSpeed = controlType === "DUMMY" ? 2 : 3;
         this.friction = 0.05;
 
+        this.useNetwork = controlType === "AI";
+
         if (controlType !== "DUMMY") {
             this.sensor = new Sensor(this);
+            this.network = new Network([this.sensor.rayCount, 10, 6, 5, 4]);
         }
         this.controls = new Controls(controlType);
     }
@@ -104,10 +107,24 @@ class Car {
         this.damaged = this.damaged
             ? true
             : this.#assessDamage(roadBorders, traffic);
-        this.sensor && this.sensor.update(roadBorders, traffic);
+        if (this.sensor) {
+            this.sensor.update(roadBorders, traffic);
+
+            if (this.useNetwork) {
+                const offsets = this.sensor.readings.map((reading) =>
+                    reading === null ? 0 : 1 - reading.offset
+                );
+                const outputs = Network.feedForward(offsets, this.network);
+
+                this.controls.forward = outputs[0];
+                this.controls.left = outputs[1];
+                this.controls.right = outputs[2];
+                this.controls.back = outputs[3];
+            }
+        }
     }
 
-    draw(ctx, colour) {
+    draw(ctx, colour, drawSensor = false) {
         if (this.damaged) {
             ctx.fillStyle = "grey";
         } else {
@@ -120,6 +137,6 @@ class Car {
         }
         ctx.fill();
 
-        this.sensor && this.sensor.draw(ctx);
+        this.sensor && drawSensor && this.sensor.draw(ctx);
     }
 }

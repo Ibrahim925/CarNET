@@ -2,9 +2,23 @@ body {
     margin: 0;
     background: darkgray;
     overflow: hidden;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
 }
 
 #carnet-canvas {
     background: lightgrey;
+}
+
+#vertical-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    border: none;
+    border-radius: 25px;
+    margin: 2px;
 }
