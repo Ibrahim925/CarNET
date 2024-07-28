@@ -14,8 +14,8 @@ class Car {
         this.useNetwork = controlType === "AI";
 
         if (controlType !== "DUMMY") {
-            this.sensor = new Sensor(this);
-            this.network = new Network([this.sensor.rayCount, 10, 6, 5, 4]);
+            this.sensor = new Sensor(this, 30, 80, 2 * Math.PI);
+            this.network = new Network([this.sensor.rayCount, 25, 10, 4]);
         }
         this.controls = new Controls(controlType);
     }

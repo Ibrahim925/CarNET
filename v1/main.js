@@ -3,11 +3,15 @@ canvas.width = 200;
 
 const ctx = canvas.getContext("2d");
 const road = new Road(canvas.width / 2, canvas.width * 0.9);
-const cars = generateCars(100);
+const cars = generateCars(1000);
 const traffic = [
     new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY"),
     new Car(road.getLaneCenter(0), -300, 30, 50, "DUMMY"),
-    new Car(road.getLaneCenter(4), -300, 30, 50, "DUMMY"),
+    new Car(road.getLaneCenter(2), -300, 30, 50, "DUMMY"),
+    new Car(road.getLaneCenter(0), -600, 30, 50, "DUMMY"),
+    new Car(road.getLaneCenter(1), -600, 30, 50, "DUMMY"),
+    new Car(road.getLaneCenter(2), -800, 30, 50, "DUMMY"),
+    new Car(road.getLaneCenter(2), -1000, 30, 50, "DUMMY"),
 ];
 
 let bestCar = cars[0];
