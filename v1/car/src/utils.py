@@ -172,8 +172,6 @@ async def handle_object_on_lane(droid):
         if data["action"] == "accept":
             print("User accepted. Executing actions.")
             # User accepted, execute the specific actions
-            droid.set_speed(10)
-            time.sleep(1.2)
             droid.set_speed(0)
             droid.spin(-90, 1)
             droid.set_speed(20)

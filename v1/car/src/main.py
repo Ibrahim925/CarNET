@@ -120,11 +120,8 @@ def main():
 
                 curve, object_on_lane = get_lane_curve(frame)
 
-                if curve < 0:
-                    curve += 1
-
                 if object_on_lane:
-                    droid.roll(int(curr_angle), 20, 0.7)
+                    droid.roll(int(curr_angle), 20, 1)
                     moved = asyncio.run(utils.handle_object_on_lane(droid))
 
                     if not moved:
@@ -155,5 +152,4 @@ def main():
 if __name__ == "__main__":
     num_to_avg = 10
     curve_list = []
-    SENSITIVITY = 2
     main()
